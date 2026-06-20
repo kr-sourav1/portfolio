@@ -23,7 +23,13 @@ export function Section({
   containerClassName,
 }: SectionProps) {
   return (
-    <section id={id} className={cn('section-anchor relative py-20 sm:py-28', className)}>
+    <section
+      id={id}
+      className={cn(
+        'section-anchor relative py-20 [content-visibility:auto] [contain-intrinsic-size:auto_900px] sm:py-28',
+        className,
+      )}
+    >
       <div className={cn('container', containerClassName)}>
         {(eyebrow || title || description) && (
           <header className="mx-auto mb-12 max-w-2xl text-center sm:mb-16">

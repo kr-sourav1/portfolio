@@ -167,9 +167,12 @@
     @apply bg-surface/65 backdrop-blur-xl backdrop-saturate-150;
   }
 
-  /* Bento tile — the core building block of the layout */
+  /* Bento tile — the core building block of the layout.
+     Opaque surface (no backdrop-filter) so scrolling stays smooth: a
+     backdrop-blur here would force the browser to recompute a blurred
+     backdrop every frame, for every tile on screen. */
   .tile {
-    @apply relative overflow-hidden rounded-3xl border border-border bg-surface/80 backdrop-blur-sm;
+    @apply relative overflow-hidden rounded-3xl border border-border bg-surface;
     box-shadow:
       0 1px 0 0 hsl(var(--surface) / 0.6) inset,
       0 1px 2px hsl(var(--foreground) / 0.04),
@@ -177,7 +180,7 @@
   }
 
   .tile-interactive {
-    @apply tile transition-all duration-300 ease-out-expo hover:-translate-y-1 hover:border-brand-400/40;
+    @apply tile transition-[transform,border-color] duration-300 ease-out-expo hover:-translate-y-1 hover:border-brand-400/40;
   }
 
   /* Legacy alias so existing sections keep working during the redesign */
@@ -191,7 +194,7 @@
 
   /* Eyebrow chip used in section headers */
   .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-1 font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground backdrop-blur;
+    @apply inline-flex items-center gap-2 rounded-full border border-border bg-surface-muted px-3 py-1 font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground;
   }
 
   /* Animated aurora gradient border wrapper */
