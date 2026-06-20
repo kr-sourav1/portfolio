@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowUpRight, Github, Star } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
+import { ArrowUpRight, ChevronLeft, ChevronRight, Github, Star } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
 import { SpotlightCard } from '@/components/ui/SpotlightCard'
 import { projects, type Project, type ProjectCategory } from '@/data/content'
@@ -10,19 +10,44 @@ const FILTERS: ('All' | ProjectCategory)[] = ['All', 'Full-Stack', 'AI / ML', 'B
 
 export function Projects() {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>('All')
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [canPrev, setCanPrev] = useState(false)
+  const [canNext, setCanNext] = useState(true)
 
   const visible = useMemo(
     () => (filter === 'All' ? projects : projects.filter((p) => p.category === filter)),
     [filter],
   )
-
   const activeFilters = FILTERS.filter(
     (f) => f === 'All' || projects.some((p) => p.category === f),
   )
 
-  // On the default view, lead with a wide hero feature tile; on filtered
-  // views keep a clean uniform grid so a minor project isn't blown up.
-  const showFeature = filter === 'All' && visible.length > 2
+  function updateArrows() {
+    const el = trackRef.current
+    if (!el) return
+    setCanPrev(el.scrollLeft > 8)
+    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 8)
+  }
+
+  // Reset to the start and recompute arrow state whenever the filter changes.
+  useEffect(() => {
+    const el = trackRef.current
+    if (el) el.scrollTo({ left: 0 })
+    const raf = requestAnimationFrame(updateArrows)
+    window.addEventListener('resize', updateArrows)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('resize', updateArrows)
+    }
+  }, [filter])
+
+  function scrollByCard(dir: 1 | -1) {
+    const el = trackRef.current
+    if (!el) return
+    const card = el.querySelector<HTMLElement>('[data-card]')
+    const amount = card ? card.offsetWidth + 20 : el.clientWidth * 0.85
+    el.scrollBy({ left: dir * amount, behavior: 'smooth' })
+  }
 
   return (
     <Section
@@ -31,62 +56,98 @@ export function Projects() {
       title="Things I've designed & built"
       description="A selection of work spanning full-stack platforms, AI integrations, and cloud deployments."
     >
-      {/* Filter tabs */}
-      <div className="mb-10 flex flex-wrap justify-center gap-2">
-        {activeFilters.map((f) => (
-          <button
-            key={f}
-            onClick={() => setFilter(f)}
-            className={cn(
-              'relative rounded-full px-4 py-2 text-sm font-medium transition-colors',
-              filter === f ? 'text-white' : 'text-muted-foreground hover:text-foreground',
-            )}
-          >
-            {filter === f && (
-              <motion.span
-                layoutId="filter-pill"
-                className="absolute inset-0 -z-10 rounded-full bg-brand-500"
-                transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-              />
-            )}
-            {f}
-          </button>
-        ))}
+      {/* Controls: filters + carousel arrows */}
+      <div className="mb-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+        <div className="flex flex-wrap justify-center gap-2">
+          {activeFilters.map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={cn(
+                'relative rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                filter === f ? 'text-white' : 'text-muted-foreground hover:text-foreground',
+              )}
+            >
+              {filter === f && (
+                <motion.span
+                  layoutId="filter-pill"
+                  className="absolute inset-0 -z-10 rounded-full bg-brand-500"
+                  transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                />
+              )}
+              {f}
+            </button>
+          ))}
+        </div>
+
+        <div className="hidden items-center gap-2 sm:flex">
+          <CarouselButton dir="prev" disabled={!canPrev} onClick={() => scrollByCard(-1)} />
+          <CarouselButton dir="next" disabled={!canNext} onClick={() => scrollByCard(1)} />
+        </div>
       </div>
 
-      {/* Bento grid */}
-      <motion.div
-        layout
-        className="grid grid-flow-row-dense grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6 lg:gap-5"
-      >
-        <AnimatePresence mode="popLayout">
-          {visible.map((project, i) => {
-            const feature = showFeature && i === 0
-            return (
-              <motion.div
-                key={project.title}
-                layout
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className={cn(
-                  feature
-                    ? 'sm:col-span-2 lg:col-span-4'
-                    : 'sm:col-span-1 lg:col-span-2',
-                )}
-              >
-                {feature ? (
-                  <FeatureProjectCard project={project} />
-                ) : (
-                  <ProjectCard project={project} />
-                )}
-              </motion.div>
-            )
-          })}
-        </AnimatePresence>
-      </motion.div>
+      {/* Carousel */}
+      <div className="relative">
+        {/* Edge fades hint at more content without blocking interaction */}
+        <div
+          aria-hidden
+          className={cn(
+            'pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-background to-transparent transition-opacity duration-300 sm:w-16',
+            canPrev ? 'opacity-100' : 'opacity-0',
+          )}
+        />
+        <div
+          aria-hidden
+          className={cn(
+            'pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-background to-transparent transition-opacity duration-300 sm:w-16',
+            canNext ? 'opacity-100' : 'opacity-0',
+          )}
+        />
+
+        <div
+          ref={trackRef}
+          onScroll={updateArrows}
+          className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2"
+        >
+          {visible.map((project) => (
+            <div
+              key={project.title}
+              data-card
+              className="w-[85vw] shrink-0 snap-start sm:w-[360px] lg:w-[384px]"
+            >
+              <ProjectCard project={project} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <p className="mt-5 text-center text-xs text-muted-foreground sm:hidden">
+        Swipe to explore more →
+      </p>
     </Section>
+  )
+}
+
+function CarouselButton({
+  dir,
+  disabled,
+  onClick,
+}: {
+  dir: 'prev' | 'next'
+  disabled: boolean
+  onClick: () => void
+}) {
+  const Icon = dir === 'prev' ? ChevronLeft : ChevronRight
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={dir === 'prev' ? 'Previous projects' : 'Next projects'}
+      className="grid size-10 place-items-center rounded-full border border-border bg-surface text-foreground transition-all hover:border-brand-400/40 hover:bg-surface-muted disabled:cursor-not-allowed disabled:opacity-40"
+    >
+      <Icon className="size-5" />
+    </button>
   )
 }
 
@@ -147,49 +208,6 @@ function ProjectLinks({ project, className }: { project: Project; className?: st
   )
 }
 
-/** Wide, landscape hero card for the lead project. */
-function FeatureProjectCard({ project }: { project: Project }) {
-  return (
-    <SpotlightCard className="flex h-full flex-col lg:flex-row">
-      <div className="flex flex-1 flex-col p-6 sm:p-8">
-        <ProjectMeta project={project} />
-        <h3 className="mt-4 text-2xl font-bold tracking-tight text-foreground">{project.title}</h3>
-        <p className="mt-1 text-sm font-medium text-brand-600">{project.tagline}</p>
-        <p className="mt-3 max-w-prose text-sm leading-relaxed text-muted-foreground">
-          {project.description}
-        </p>
-        <div className="mt-auto pt-6">
-          <ProjectLinks project={project} />
-        </div>
-      </div>
-
-      <div className="border-t border-border bg-surface-muted/40 p-6 sm:p-8 lg:w-72 lg:shrink-0 lg:border-l lg:border-t-0">
-        <div className="font-mono text-2xs font-medium uppercase tracking-widest text-muted-foreground">
-          Highlights
-        </div>
-        <ul className="mt-3 space-y-2.5">
-          {project.highlights.map((h) => (
-            <li key={h} className="flex gap-2 text-sm text-foreground/90">
-              <span className="mt-[7px] size-1 shrink-0 rounded-full bg-brand-500" />
-              <span className="leading-relaxed">{h}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-5 flex flex-wrap gap-1.5">
-          {project.tech.map((t) => (
-            <span
-              key={t}
-              className="rounded-md border border-border bg-surface px-2 py-0.5 font-mono text-2xs text-foreground/70"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-      </div>
-    </SpotlightCard>
-  )
-}
-
 function ProjectCard({ project }: { project: Project }) {
   return (
     <SpotlightCard className="flex h-full flex-col">
@@ -199,7 +217,9 @@ function ProjectCard({ project }: { project: Project }) {
           {project.title}
         </h3>
         <p className="mt-1 text-sm font-medium text-brand-600">{project.tagline}</p>
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{project.description}</p>
+        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+          {project.description}
+        </p>
 
         <ul className="mt-4 space-y-1.5">
           {project.highlights.slice(0, 3).map((h) => (
@@ -221,7 +241,7 @@ function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
 
-        <ProjectLinks project={project} className="mt-auto" />
+        <ProjectLinks project={project} className="mt-auto pt-4" />
       </div>
     </SpotlightCard>
   )

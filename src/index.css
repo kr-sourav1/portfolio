@@ -243,4 +243,13 @@
   .tabular {
     font-variant-numeric: tabular-nums;
   }
+
+  /* Hide scrollbars on horizontal carousels (scroll still works) */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }

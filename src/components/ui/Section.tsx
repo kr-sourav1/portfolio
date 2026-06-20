@@ -26,13 +26,13 @@ export function Section({
     <section
       id={id}
       className={cn(
-        'section-anchor relative py-20 [content-visibility:auto] [contain-intrinsic-size:auto_900px] sm:py-28',
+        'section-anchor relative py-12 [content-visibility:auto] [contain-intrinsic-size:auto_800px] sm:py-16',
         className,
       )}
     >
       <div className={cn('container', containerClassName)}>
         {(eyebrow || title || description) && (
-          <header className="mx-auto mb-12 max-w-2xl text-center sm:mb-16">
+          <header className="mx-auto mb-10 max-w-2xl text-center sm:mb-12">
             {eyebrow && (
               <Reveal>
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-muted px-3 py-1 font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground">

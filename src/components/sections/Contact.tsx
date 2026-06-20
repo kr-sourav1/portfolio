@@ -20,7 +20,7 @@ export function Contact() {
   }
 
   return (
-    <Section id="contact" className="pb-28">
+    <Section id="contact">
       <Reveal>
         <div className="gradient-border relative mx-auto max-w-4xl overflow-hidden rounded-[2rem] bg-surface p-8 sm:p-12">
           {/* Glow */}
