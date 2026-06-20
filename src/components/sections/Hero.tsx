@@ -176,18 +176,20 @@ export function Hero() {
                 </BentoTile>
               </button>
             </motion.div>
-
-            {/* Tech marquee */}
-            <motion.div
-              variants={tileIn}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="col-span-2 lg:col-span-6"
-            >
-              <BentoTile spotlight={false} interactive={false} className="flex h-full items-center px-2 py-4">
-                <TechMarquee />
-              </BentoTile>
-            </motion.div>
           </BentoGrid>
+
+          {/* Tech marquee — slim full-width strip, kept OUT of the fixed-height
+              bento rows so a single row of chips never stretches into a tall,
+              mostly-empty tile. */}
+          <motion.div
+            variants={tileIn}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-3.5 sm:mt-4 lg:mt-5"
+          >
+            <BentoTile spotlight={false} interactive={false} className="flex items-center px-2 py-4">
+              <TechMarquee />
+            </BentoTile>
+          </motion.div>
         </motion.div>
       </div>
 
