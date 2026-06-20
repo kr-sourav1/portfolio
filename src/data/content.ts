@@ -17,7 +17,6 @@ import {
   Code2,
   Server,
   Cloud,
-  Database,
   Wrench,
   Brain,
   Trophy,
@@ -40,9 +39,9 @@ export interface Stat {
 export interface SkillGroup {
   title: string
   icon: LucideIcon
+  /** Confident one-line descriptor of what this group represents. */
+  blurb: string
   skills: string[]
-  /** Visual weight 0–100 for the proficiency bar. */
-  level: number
 }
 
 export type ProjectCategory = 'Full-Stack' | 'AI / ML' | 'Backend' | 'Frontend' | 'Cloud'
@@ -80,20 +79,14 @@ export interface EducationItem {
   field: string
   location: string
   period: string
-  score: string
+  /** Optional — only shown when it strengthens the profile. */
+  score?: string
 }
 
 export interface Achievement {
   title: string
   detail: string
   icon: LucideIcon
-  href?: string
-}
-
-export interface Certification {
-  title: string
-  issuer: string
-  detail: string
   href?: string
 }
 
@@ -119,14 +112,14 @@ export const profile = {
   avatar: 'https://avatars.githubusercontent.com/u/122258356?v=4',
   available: true,
   resumeUrl: '/resume.pdf',
-  tagline: 'I build scalable backend systems and delightful products.',
+  tagline: 'I build scalable backend systems and AI-driven products.',
   summary:
-    'Full-Stack Software Engineer with production experience designing and deploying scalable backend systems and responsive frontends using Java (Spring Boot), React, and cloud technologies. I build high-performance platforms, integrate AI-driven capabilities, and ship robust software that runs in real-world environments.',
+    'Full-Stack Software Engineer specializing in scalable backend systems and AI-driven products. I design clean APIs and Spring Boot microservices, cut latency on high-traffic services, and own features end-to-end — from schema to production.',
   /** Longer narrative for the About section. */
   about: [
-    "I'm a Full-Stack Software Engineer based in Bengaluru who genuinely enjoys the craft of turning ambiguous product ideas into reliable, well-architected systems. My core strength is backend engineering — designing clean APIs, modeling data, and building microservices with Java and Spring Boot that hold up under real traffic.",
-    'At Prepisely Edutech I own backend services end-to-end: from the first schema sketch through testing and deployment. I care about the numbers that matter — I cut API latency by roughly 25% on high-traffic modules by rethinking queries and response paths, and I shipped two production microservices from scratch.',
-    "Lately I've been going deep on AI-driven product features — integrating OpenAI and the Model Context Protocol (MCP) to give applications context-aware intelligence, like a grounded chatbot for a Stack Overflow-style platform and an autonomous claims-processing agent. I like working at the seam where solid engineering meets new capabilities.",
+    "I'm a Full-Stack Software Engineer who turns ambiguous product ideas into reliable, well-architected systems. My core strength is backend engineering — designing clean APIs, modeling data, and building Spring Boot microservices that perform under real production load.",
+    'At Prepisely Edutech I own backend services end-to-end — from the first schema sketch through testing, deployment, and iteration. I focus on the metrics that move the product: I cut API latency by ~25% on high-traffic modules and shipped two production microservices from scratch, partnering closely with product and frontend to deliver features people use every day.',
+    "I'm increasingly drawn to the frontier where strong engineering meets AI — building grounded, context-aware features with OpenAI and the Model Context Protocol, including an AI Q&A assistant and an autonomous claims-processing agent. I move fast, sweat the fundamentals, and care about shipping software that's genuinely useful.",
   ],
 }
 
@@ -173,39 +166,39 @@ export const stats: Stat[] = [
 
 export const skillGroups: SkillGroup[] = [
   {
-    title: 'Languages & Core',
-    icon: Code2,
-    level: 92,
-    skills: ['Java', 'JavaScript', 'SQL', 'Python', 'Data Structures & Algorithms', 'OOP'],
-  },
-  {
     title: 'Backend & APIs',
     icon: Server,
-    level: 95,
+    blurb: 'My core craft — production-grade REST APIs and microservices.',
     skills: ['Spring Boot', 'Microservices', 'REST APIs', 'Node.js', 'Spring Data JPA', 'Spring AI'],
   },
   {
-    title: 'Frontend',
+    title: 'Languages & Core',
     icon: Code2,
-    level: 80,
-    skills: ['React.js', 'JavaScript', 'HTML', 'CSS', 'Responsive UI'],
+    blurb: 'The languages and fundamentals behind everything I ship.',
+    skills: ['Java', 'JavaScript', 'SQL', 'Python', 'Data Structures & Algorithms', 'OOP'],
   },
   {
     title: 'AI & Integrations',
     icon: Brain,
-    level: 78,
+    blurb: 'Grounded, context-aware product features with LLMs.',
     skills: ['OpenAI Integration', 'Model Context Protocol (MCP)', 'Spring AI', 'AI Agents'],
+  },
+  {
+    title: 'Frontend',
+    icon: Code2,
+    blurb: 'Responsive, polished interfaces that feel effortless.',
+    skills: ['React.js', 'JavaScript', 'HTML', 'CSS', 'Responsive UI'],
   },
   {
     title: 'Cloud & Databases',
     icon: Cloud,
-    level: 75,
+    blurb: 'Modeling data and shipping to the cloud.',
     skills: ['AWS', 'AWS S3', 'MySQL', 'Database Design'],
   },
   {
     title: 'Tooling',
     icon: Wrench,
-    level: 88,
+    blurb: 'The everyday workflow that keeps me shipping fast.',
     skills: ['Git', 'GitHub', 'Postman', 'IntelliJ IDEA', 'VS Code', 'GitHub Copilot'],
   },
 ]
@@ -300,11 +293,11 @@ export const projects: Project[] = [
   },
   {
     title: 'Challenge Application',
-    tagline: 'Cloud-deployed coding challenge platform on AWS',
+    tagline: 'Coding-challenge platform shipped end-to-end on AWS',
     description:
-      'A coding-challenge application deployed to AWS with S3 static hosting and a Java backend — built to explore end-to-end cloud deployment and hosting workflows.',
+      'A coding-challenge platform deployed end-to-end on AWS — a Java backend serving challenge data with S3 static hosting and a public live URL.',
     highlights: [
-      'Deployed end-to-end on AWS (S3 static hosting)',
+      'Shipped to production on AWS with a public live URL',
       'Java backend serving challenge data and submissions',
     ],
     tech: ['Java', 'Spring Boot', 'AWS S3'],
@@ -331,32 +324,6 @@ export const projects: Project[] = [
     featured: false,
     year: '2025',
   },
-  {
-    title: 'Taskify',
-    tagline: 'Task management service in Java',
-    description:
-      'A task-management application focused on clean domain modeling and CRUD workflows in Java.',
-    highlights: ['CRUD task workflows', 'Clean Java domain modeling'],
-    tech: ['Java', 'Spring Boot'],
-    category: 'Backend',
-    repo: 'https://github.com/kr-sourav1/Taskify',
-    repoName: 'Taskify',
-    featured: false,
-    year: '2025',
-  },
-  {
-    title: 'Employee Management System',
-    tagline: 'CRUD platform for employee records',
-    description:
-      'An employee-management application handling employee records and core administrative workflows.',
-    highlights: ['Employee record CRUD', 'Administrative workflows'],
-    tech: ['JavaScript', 'Node.js', 'REST APIs'],
-    category: 'Full-Stack',
-    repo: 'https://github.com/kr-sourav1/Employee_Management_System',
-    repoName: 'Employee_Management_System',
-    featured: false,
-    year: '2025',
-  },
 ]
 
 export const experience: ExperienceItem[] = [
@@ -368,12 +335,12 @@ export const experience: ExperienceItem[] = [
     end: null,
     type: 'Full-time',
     summary:
-      'Own backend services end-to-end for high-traffic learning modules, with a focus on performance and maintainability.',
+      'Own backend services end-to-end for high-traffic learning modules — driving performance, reliability, and maintainability.',
     highlights: [
-      'Developed and owned backend services from scratch using Java (Spring Boot) and Node.js for high-traffic modules (quizzes, content, users).',
-      'Built and deployed 2 production microservices end-to-end — development, testing, and deployment.',
-      'Improved backend performance by optimizing database queries and API response times, reducing latency by ~25% and enhancing overall system efficiency.',
-      'Collaborated across teams to modernize existing code, improving maintainability and development practices.',
+      'Own backend services end-to-end with Java (Spring Boot) and Node.js for high-traffic modules — quizzes, content, and users.',
+      'Designed, built, and shipped two production microservices end-to-end, from architecture through deployment.',
+      'Cut API latency by ~25% on high-traffic endpoints by optimizing database queries and response paths.',
+      'Drove modernization of legacy modules across teams, improving maintainability and raising engineering standards.',
     ],
     tech: ['Java', 'Spring Boot', 'Node.js', 'Microservices', 'MySQL', 'REST APIs'],
   },
@@ -385,11 +352,11 @@ export const experience: ExperienceItem[] = [
     end: 'Dec 2024',
     type: 'Internship',
     summary:
-      'Contributed to production-grade backend services and core application features alongside senior developers.',
+      'Delivered production backend services and core features alongside senior engineers — earning a full-time engineering role.',
     highlights: [
-      'Contributed to production-grade backend services and core application features.',
-      'Improved application performance through API response optimization and UI rendering improvements.',
-      'Gained hands-on experience in system architecture and scalability working closely with senior developers.',
+      'Delivered backend services and core features for production applications.',
+      'Improved performance through API response optimization and faster UI rendering.',
+      'Partnered with senior engineers on system architecture and scalability decisions.',
     ],
     tech: ['Java', 'Spring Boot', 'React', 'REST APIs'],
   },
@@ -399,10 +366,9 @@ export const education: EducationItem[] = [
   {
     institution: 'C-DAC Advanced Computing Training School',
     credential: 'PG Diploma in Advanced Computing (DAC)',
-    field: 'Advanced Computing',
+    field: 'Advanced Computing — Java, Microservices & Cloud',
     location: 'Bengaluru, Karnataka',
     period: 'Feb 2025 — Aug 2025',
-    score: '66%',
   },
   {
     institution: 'Haldia Institute of Technology',
@@ -427,21 +393,28 @@ export const achievements: Achievement[] = [
   },
 ]
 
-export const certifications: Certification[] = [
-  {
-    title: 'Python with SQL',
-    issuer: 'Training Program',
-    detail: 'Backend development with Python and SQL using Flask and SQLAlchemy.',
-  },
-  {
-    title: 'Spring Boot & Spring Framework with Java',
-    issuer: 'Udemy',
-    detail: 'In-depth Spring Boot and Spring Framework development with Java.',
-  },
-]
+/* ------------------------------------------------------------------ *
+ *  Live GitHub curation — keeps the "Building in the open" section     *
+ *  showing only strong, well-described work.                           *
+ * ------------------------------------------------------------------ */
 
-/** Icons exported for sections that mix in domain-specific glyphs. */
-export const sectionIcons = { Database, Trophy }
+/** Early / low-signal repos hidden from the live GitHub grid. */
+export const githubHiddenRepos = ['kohli_performance', 'kohli_performance_analysis', 'CODSOFT']
+
+/** Confident one-line descriptions used when a repo has none on GitHub. */
+export const githubRepoBlurbs: Record<string, string> = {
+  TinyLink: 'Production URL shortener with custom short codes and redirect tracking — deployed live.',
+  'autonomous-fnol-claims-agent':
+    'Agentic AI that automates First Notice of Loss insurance claims with Spring AI + MCP.',
+  Stackoverflow: 'Stack Overflow–style Q&A platform with an OpenAI + MCP grounded chatbot.',
+  'Doctor-Appointment-System':
+    'Healthcare platform for appointments, prescriptions, and secure PDF records.',
+  Challenge_Application: 'Coding-challenge platform shipped end-to-end on AWS.',
+  Taskify: 'Task-management service with clean Java domain modeling.',
+  Employee_Management_System: 'Employee records and admin workflows behind a REST API.',
+  Magical_Arena_Game: 'Turn-based arena battle simulation engine in Java.',
+  movie_recommender_system: 'Content-based movie recommendation engine in Python.',
+}
 
 export const navItems = [
   { id: 'about', label: 'About' },

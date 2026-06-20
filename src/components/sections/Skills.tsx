@@ -1,5 +1,4 @@
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { motion } from 'framer-motion'
 import { Section } from '@/components/ui/Section'
 import { BentoGrid, BentoTile } from '@/components/ui/Bento'
 import { skillGroups } from '@/data/content'
@@ -51,40 +50,24 @@ function SkillTile({
   glow: 'indigo' | 'violet' | 'pink' | 'cyan'
   feature: boolean
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-40px' })
-
   return (
     <BentoTile glow={glow} className="h-full">
-      <div ref={ref} className="flex h-full flex-col p-6">
-        <div className="flex items-center justify-between">
-          <div className="inline-grid size-11 place-items-center rounded-2xl bg-brand-500/10 text-brand-600">
-            <group.icon className="size-5" />
-          </div>
-          <span className="tabular font-mono text-xs text-muted-foreground">{group.level}%</span>
+      <div className="flex h-full flex-col p-6">
+        <div className="inline-grid size-11 place-items-center rounded-2xl bg-brand-500/10 text-brand-600">
+          <group.icon className="size-5" />
         </div>
 
         <h3 className={cn('mt-4 font-semibold tracking-tight text-foreground', feature && 'text-lg')}>
           {group.title}
         </h3>
-
-        {feature && (
-          <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            My daily drivers — the languages and fundamentals behind everything I design and ship.
-          </p>
-        )}
-
-        <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-surface-muted">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={inView ? { width: `${group.level}%` } : { width: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="h-full rounded-full"
-            style={{
-              background: 'linear-gradient(90deg, hsl(var(--aurora-1)), hsl(var(--aurora-2)))',
-            }}
-          />
-        </div>
+        <p
+          className={cn(
+            'mt-1.5 text-sm leading-relaxed text-muted-foreground',
+            feature && 'max-w-xs',
+          )}
+        >
+          {group.blurb}
+        </p>
 
         <ul className={cn('mt-4 flex flex-wrap gap-2', feature && 'mt-auto pt-4')}>
           {group.skills.map((skill) => (

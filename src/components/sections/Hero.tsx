@@ -65,7 +65,7 @@ export function Hero() {
                       <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-75" />
                       <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
                     </span>
-                    Available for new roles
+                    Open to opportunities
                   </span>
                   <span className="hidden items-center gap-1.5 text-xs text-muted-foreground sm:inline-flex">
                     <MapPin className="size-3.5" />

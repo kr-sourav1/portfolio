@@ -4,18 +4,19 @@ import {
   GitFork,
   Github,
   Star,
-  Users,
+  Calendar,
+  Code2,
+  Sparkles,
   FolderGit2,
   CircleDot,
 } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
 import { Reveal } from '@/components/ui/Reveal'
-import { profile } from '@/data/content'
+import { githubHiddenRepos, githubRepoBlurbs, profile } from '@/data/content'
 import {
   aggregateLanguages,
   fetchGitHubRepos,
   fetchGitHubUser,
-  totalStars,
   type GitHubRepo,
   type GitHubUser,
 } from '@/lib/github'
@@ -72,16 +73,19 @@ export function GitHubSection() {
 }
 
 function GitHubContent({ user, repos }: { user: GitHubUser; repos: GitHubRepo[] }) {
-  const langs = aggregateLanguages(repos).slice(0, 6)
+  // Curate: hide early / low-signal repos from the public showcase.
+  const shown = repos.filter((r) => !githubHiddenRepos.includes(r.name))
+  const allLangs = aggregateLanguages(shown)
+  const langs = allLangs.slice(0, 6)
   const langTotal = langs.reduce((s, l) => s + l.count, 0) || 1
-  const stars = totalStars(repos)
-  const topRepos = repos.slice(0, 6)
+  const topRepos = shown.slice(0, 6)
+  const sinceYear = new Date(user.created_at).getFullYear()
 
   const summary = [
     { icon: FolderGit2, label: 'Repositories', value: formatCompact(user.public_repos) },
-    { icon: Star, label: 'Total stars', value: formatCompact(stars) },
-    { icon: Users, label: 'Followers', value: formatCompact(user.followers) },
-    { icon: CircleDot, label: 'Following', value: formatCompact(user.following) },
+    { icon: Code2, label: 'Languages', value: String(allLangs.length) },
+    { icon: Calendar, label: 'Building since', value: String(sinceYear) },
+    { icon: Sparkles, label: 'Top language', value: allLangs[0]?.name ?? '—' },
   ]
 
   return (
@@ -205,7 +209,7 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
       </div>
 
       <p className="mt-2 line-clamp-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-        {repo.description ?? 'No description provided.'}
+        {githubRepoBlurbs[repo.name] ?? repo.description ?? 'Personal engineering project.'}
       </p>
 
       <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
@@ -220,16 +224,20 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
             {repo.language}
           </span>
         )}
-        <span className="inline-flex items-center gap-1">
-          <Star className="size-3.5" />
-          {repo.stargazers_count}
-        </span>
-        <span className="inline-flex items-center gap-1">
-          <GitFork className="size-3.5" />
-          {repo.forks_count}
-        </span>
+        {repo.stargazers_count > 0 && (
+          <span className="inline-flex items-center gap-1">
+            <Star className="size-3.5" />
+            {repo.stargazers_count}
+          </span>
+        )}
+        {repo.forks_count > 0 && (
+          <span className="inline-flex items-center gap-1">
+            <GitFork className="size-3.5" />
+            {repo.forks_count}
+          </span>
+        )}
         {repo.homepage && (
-          <span className="ml-auto inline-flex items-center gap-1 text-brand-600">
+          <span className="ml-auto inline-flex items-center gap-1 font-medium text-brand-600">
             <CircleDot className="size-3" />
             Live
           </span>

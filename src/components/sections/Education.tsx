@@ -40,9 +40,11 @@ export function Education() {
                           <MapPin className="size-3.5" />
                           {edu.location}
                         </span>
-                        <span className="rounded-md border border-border bg-surface-muted px-2 py-0.5 font-mono text-foreground/80">
-                          {edu.score}
-                        </span>
+                        {edu.score && (
+                          <span className="rounded-md border border-border bg-surface-muted px-2 py-0.5 font-mono text-foreground/80">
+                            {edu.score}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>

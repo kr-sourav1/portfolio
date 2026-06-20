@@ -15,6 +15,7 @@ export interface GitHubUser {
   public_repos: number
   location: string | null
   hireable: boolean | null
+  created_at: string
 }
 
 export interface GitHubRepo {

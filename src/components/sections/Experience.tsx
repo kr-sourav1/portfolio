@@ -1,7 +1,7 @@
 import { Briefcase, CheckCircle2 } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
 import { Reveal } from '@/components/ui/Reveal'
-import { experience, certifications } from '@/data/content'
+import { experience } from '@/data/content'
 import { formatDateRange } from '@/lib/utils'
 
 export function Experience() {
@@ -73,31 +73,6 @@ export function Experience() {
             ))}
           </div>
         </div>
-
-        {/* Certifications & training */}
-        <Reveal delay={0.1}>
-          <div className="mt-12">
-            <h3 className="mb-4 text-center font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground">
-              Training & Certifications
-            </h3>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {certifications.map((c) => (
-                <div key={c.title} className="card flex items-start gap-3 p-4">
-                  <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-lg bg-brand-500/10 font-mono text-sm font-semibold text-brand-600">
-                    ✓
-                  </span>
-                  <div>
-                    <div className="font-medium text-foreground">{c.title}</div>
-                    <div className="text-xs text-muted-foreground">{c.issuer}</div>
-                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                      {c.detail}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Reveal>
       </div>
     </Section>
   )
