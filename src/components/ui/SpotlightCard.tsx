@@ -27,20 +27,15 @@ export function SpotlightCard({ children, className }: SpotlightCardProps) {
   const background = useMotionTemplate`radial-gradient(420px circle at ${mouseX}px ${mouseY}px, hsl(var(--aurora-2) / 0.14), transparent 70%)`
 
   return (
-    <div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      className={cn(
-        'tile-interactive group',
-        className,
-      )}
-    >
+    <div ref={ref} onMouseMove={handleMouseMove} className="tile-interactive group h-full">
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{ background }}
       />
-      <div className="relative">{children}</div>
+      {/* Layout className is applied here, on the wrapper that actually holds
+          the content, so flex-row / h-full reach the card's columns. */}
+      <div className={cn('relative h-full', className)}>{children}</div>
     </div>
   )
 }
