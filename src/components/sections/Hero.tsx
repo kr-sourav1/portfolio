@@ -58,7 +58,7 @@ export function Hero() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="col-span-2 lg:col-span-4 lg:row-span-2"
             >
-              <BentoTile glow="indigo" className="flex h-full flex-col justify-center p-7 sm:p-9">
+              <BentoTile glow="indigo" className="flex h-full flex-col justify-center p-6 sm:p-8">
                 <div className="flex items-center gap-2.5">
                   <span className="eyebrow">
                     <span className="relative flex size-2">
@@ -146,7 +146,7 @@ export function Hero() {
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className="col-span-1 lg:col-span-2"
               >
-                <BentoTile glow={statGlow[i % statGlow.length]} className="flex h-full flex-col justify-center p-5 sm:p-6">
+                <BentoTile glow={statGlow[i % statGlow.length]} className="flex h-full flex-col justify-center p-6">
                   <div className="tabular text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                     {s.value}
                   </div>
@@ -163,7 +163,7 @@ export function Hero() {
               className="col-span-2 lg:col-span-2"
             >
               <button onClick={() => scrollToSection('contact')} className="block size-full text-left">
-                <BentoTile glow="violet" className="flex h-full flex-col justify-center p-5 sm:p-6">
+                <BentoTile glow="violet" className="flex h-full flex-col justify-center p-6">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-semibold text-foreground">Let's work together</span>
                     <span className="grid size-8 place-items-center rounded-lg border border-border bg-surface text-brand-600 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">

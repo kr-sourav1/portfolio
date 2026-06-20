@@ -403,6 +403,7 @@ export const githubHiddenRepos = ['kohli_performance', 'kohli_performance_analys
 
 /** Confident one-line descriptions used when a repo has none on GitHub. */
 export const githubRepoBlurbs: Record<string, string> = {
+  portfolio: 'This portfolio — React, TypeScript, Tailwind CSS, and Framer Motion.',
   TinyLink: 'Production URL shortener with custom short codes and redirect tracking — deployed live.',
   'autonomous-fnol-claims-agent':
     'Agentic AI that automates First Notice of Loss insurance claims with Spring AI + MCP.',

@@ -58,7 +58,7 @@ export function About() {
             className="col-span-2 lg:col-span-4"
           >
             <BentoTile glow="indigo" className="h-full">
-              <div className="flex h-full flex-col justify-center gap-4 p-7 sm:p-9">
+              <div className="flex h-full flex-col justify-center gap-4 p-6 sm:p-8">
                 {profile.about.map((para, i) => (
                   <p
                     key={i}

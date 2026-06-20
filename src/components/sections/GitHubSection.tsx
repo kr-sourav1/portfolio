@@ -179,7 +179,7 @@ function GitHubContent({ user, repos }: { user: GitHubUser; repos: GitHubRepo[] 
       )}
 
       {/* Repo grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
         {topRepos.map((repo, i) => (
           <Reveal key={repo.id} delay={i * 0.05}>
             <RepoCard repo={repo} />
@@ -196,7 +196,7 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
       href={repo.html_url}
       target="_blank"
       rel="noreferrer"
-      className="card group flex h-full flex-col p-5 transition-all hover:-translate-y-0.5 hover:border-brand-400/40"
+      className="card group flex h-full flex-col p-6 transition-all hover:-translate-y-0.5 hover:border-brand-400/40"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-muted-foreground">

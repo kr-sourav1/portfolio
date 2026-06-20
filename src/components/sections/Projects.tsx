@@ -151,7 +151,7 @@ function ProjectLinks({ project, className }: { project: Project; className?: st
 function FeatureProjectCard({ project }: { project: Project }) {
   return (
     <SpotlightCard className="flex h-full flex-col lg:flex-row">
-      <div className="flex flex-1 flex-col p-7 sm:p-8">
+      <div className="flex flex-1 flex-col p-6 sm:p-8">
         <ProjectMeta project={project} />
         <h3 className="mt-4 text-2xl font-bold tracking-tight text-foreground">{project.title}</h3>
         <p className="mt-1 text-sm font-medium text-brand-600">{project.tagline}</p>
@@ -163,7 +163,7 @@ function FeatureProjectCard({ project }: { project: Project }) {
         </div>
       </div>
 
-      <div className="border-t border-border bg-surface-muted/40 p-7 sm:p-8 lg:w-72 lg:shrink-0 lg:border-l lg:border-t-0">
+      <div className="border-t border-border bg-surface-muted/40 p-6 sm:p-8 lg:w-72 lg:shrink-0 lg:border-l lg:border-t-0">
         <div className="font-mono text-2xs font-medium uppercase tracking-widest text-muted-foreground">
           Highlights
         </div>
@@ -221,7 +221,7 @@ function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
 
-        <ProjectLinks project={project} className="mt-6" />
+        <ProjectLinks project={project} className="mt-auto" />
       </div>
     </SpotlightCard>
   )

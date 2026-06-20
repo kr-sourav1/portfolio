@@ -1,18 +1,8 @@
 import { motion } from 'framer-motion'
 import { Section } from '@/components/ui/Section'
-import { BentoGrid, BentoTile } from '@/components/ui/Bento'
+import { BentoTile } from '@/components/ui/Bento'
 import { skillGroups } from '@/data/content'
-import { cn } from '@/lib/utils'
 
-// Asymmetric bento spans: the strongest group becomes a tall feature tile.
-const spans = [
-  'col-span-2 lg:col-span-3 lg:row-span-2',
-  'col-span-1 lg:col-span-3',
-  'col-span-1 lg:col-span-3',
-  'col-span-1 lg:col-span-2',
-  'col-span-1 lg:col-span-2',
-  'col-span-2 lg:col-span-2',
-]
 const glows = ['indigo', 'violet', 'cyan', 'pink', 'indigo', 'violet'] as const
 
 export function Skills() {
@@ -23,7 +13,7 @@ export function Skills() {
       title="A full-stack toolkit, weighted to the backend"
       description="The technologies I reach for to design, build, and ship reliable systems."
     >
-      <BentoGrid className="lg:auto-rows-[13.5rem]">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
         {skillGroups.map((group, i) => (
           <motion.div
             key={group.title}
@@ -31,12 +21,11 @@ export function Skills() {
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.5, delay: (i % 3) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-            className={spans[i % spans.length]}
           >
-            <SkillTile group={group} glow={glows[i % glows.length]} feature={i === 0} />
+            <SkillTile group={group} glow={glows[i % glows.length]} />
           </motion.div>
         ))}
-      </BentoGrid>
+      </div>
     </Section>
   )
 }
@@ -44,11 +33,9 @@ export function Skills() {
 function SkillTile({
   group,
   glow,
-  feature,
 }: {
   group: (typeof skillGroups)[number]
   glow: 'indigo' | 'violet' | 'pink' | 'cyan'
-  feature: boolean
 }) {
   return (
     <BentoTile glow={glow} className="h-full">
@@ -57,19 +44,10 @@ function SkillTile({
           <group.icon className="size-5" />
         </div>
 
-        <h3 className={cn('mt-4 font-semibold tracking-tight text-foreground', feature && 'text-lg')}>
-          {group.title}
-        </h3>
-        <p
-          className={cn(
-            'mt-1.5 text-sm leading-relaxed text-muted-foreground',
-            feature && 'max-w-xs',
-          )}
-        >
-          {group.blurb}
-        </p>
+        <h3 className="mt-5 font-semibold tracking-tight text-foreground">{group.title}</h3>
+        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{group.blurb}</p>
 
-        <ul className={cn('mt-4 flex flex-wrap gap-2', feature && 'mt-auto pt-4')}>
+        <ul className="mt-auto flex flex-wrap gap-2 pt-6">
           {group.skills.map((skill) => (
             <li
               key={skill}
