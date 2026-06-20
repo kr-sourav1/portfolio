@@ -24,14 +24,14 @@ export function SpotlightCard({ children, className }: SpotlightCardProps) {
     mouseY.set(e.clientY - rect.top)
   }
 
-  const background = useMotionTemplate`radial-gradient(420px circle at ${mouseX}px ${mouseY}px, hsl(var(--brand-500) / 0.12), transparent 70%)`
+  const background = useMotionTemplate`radial-gradient(420px circle at ${mouseX}px ${mouseY}px, hsl(var(--aurora-2) / 0.14), transparent 70%)`
 
   return (
     <div
       ref={ref}
       onMouseMove={handleMouseMove}
       className={cn(
-        'group relative overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-colors duration-300 hover:border-brand-400/40',
+        'tile-interactive group',
         className,
       )}
     >

@@ -103,10 +103,11 @@ export const profile = {
   name: 'Sourav Kumar Verma',
   firstName: 'Sourav',
   title: 'Full-Stack Software Engineer',
-  /** Rotating roles for the animated hero subtitle. */
+  /** Rotating roles for the animated hero subtitle (kept short so they fit
+   *  one line on mobile, where the rotate animation clips overflow). */
   roles: [
     'Full-Stack Software Engineer',
-    'Backend & Microservices Specialist',
+    'Backend Systems Engineer',
     'Spring Boot Developer',
     'AI-Driven Product Builder',
   ],
