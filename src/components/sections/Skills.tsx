@@ -68,6 +68,12 @@ function SkillTile({
           {group.title}
         </h3>
 
+        {feature && (
+          <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
+            My daily drivers — the languages and fundamentals behind everything I design and ship.
+          </p>
+        )}
+
         <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-surface-muted">
           <motion.div
             initial={{ width: 0 }}

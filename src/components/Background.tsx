@@ -14,28 +14,28 @@ export function Background() {
       {/* Base wash so the mesh reads on both themes */}
       <div className="absolute inset-0 bg-background" />
 
-      {/* Aurora fields */}
+      {/* Aurora fields — most intense near the hero (top), calmer below */}
       <motion.div
-        className="absolute -left-[10%] -top-[15%] h-[55vh] w-[55vw] rounded-full blur-[110px]"
-        style={{ background: 'radial-gradient(circle, hsl(var(--aurora-1) / var(--aurora-strength)), transparent 70%)' }}
+        className="absolute -left-[12%] -top-[18%] h-[62vh] w-[60vw] rounded-full blur-[100px]"
+        style={{ background: 'radial-gradient(circle, hsl(var(--aurora-1) / var(--aurora-strength)), transparent 68%)' }}
         animate={{ x: [0, 80, -20, 0], y: [0, 50, 20, 0], scale: [1, 1.12, 0.98, 1] }}
         transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute right-[-10%] top-[-5%] h-[50vh] w-[45vw] rounded-full blur-[120px]"
-        style={{ background: 'radial-gradient(circle, hsl(var(--aurora-2) / var(--aurora-strength)), transparent 70%)' }}
+        className="absolute right-[-12%] -top-[8%] h-[58vh] w-[50vw] rounded-full blur-[110px]"
+        style={{ background: 'radial-gradient(circle, hsl(var(--aurora-2) / var(--aurora-strength)), transparent 68%)' }}
         animate={{ x: [0, -70, 30, 0], y: [0, 60, 10, 0], scale: [1, 1.08, 1.04, 1] }}
         transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute left-[20%] top-[35%] h-[45vh] w-[40vw] rounded-full blur-[120px]"
-        style={{ background: 'radial-gradient(circle, hsl(var(--aurora-3) / calc(var(--aurora-strength) * 0.85)), transparent 70%)' }}
+        className="absolute left-[18%] top-[22%] h-[48vh] w-[42vw] rounded-full blur-[110px]"
+        style={{ background: 'radial-gradient(circle, hsl(var(--aurora-3) / calc(var(--aurora-strength) * 0.95)), transparent 68%)' }}
         animate={{ x: [0, 60, -40, 0], y: [0, -40, 30, 0], scale: [1, 1.1, 0.96, 1] }}
         transition={{ duration: 34, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute right-[15%] top-[55%] h-[42vh] w-[38vw] rounded-full blur-[120px]"
-        style={{ background: 'radial-gradient(circle, hsl(var(--aurora-4) / calc(var(--aurora-strength) * 0.8)), transparent 70%)' }}
+        className="absolute right-[12%] top-[48%] h-[42vh] w-[38vw] rounded-full blur-[120px]"
+        style={{ background: 'radial-gradient(circle, hsl(var(--aurora-4) / calc(var(--aurora-strength) * 0.7)), transparent 70%)' }}
         animate={{ x: [0, -50, 20, 0], y: [0, 40, -20, 0], scale: [1, 1.06, 1.02, 1] }}
         transition={{ duration: 38, repeat: Infinity, ease: 'easeInOut' }}
       />

@@ -39,11 +39,11 @@
     --brand-900: 242 47% 30%;
 
     /* Aurora accent hues (decorative only) */
-    --aurora-1: 248 90% 66%; /* indigo  */
-    --aurora-2: 280 85% 68%; /* violet  */
-    --aurora-3: 330 90% 68%; /* pink    */
-    --aurora-4: 190 90% 60%; /* cyan    */
-    --aurora-strength: 0.16;
+    --aurora-1: 248 92% 64%; /* indigo  */
+    --aurora-2: 280 88% 66%; /* violet  */
+    --aurora-3: 330 92% 66%; /* pink    */
+    --aurora-4: 188 92% 56%; /* cyan    */
+    --aurora-strength: 0.24;
 
     color-scheme: light;
   }
@@ -76,11 +76,11 @@
     --brand-800: 244 95% 94%;
     --brand-900: 245 100% 97%;
 
-    --aurora-1: 248 90% 64%;
-    --aurora-2: 282 85% 66%;
-    --aurora-3: 328 88% 64%;
-    --aurora-4: 188 90% 56%;
-    --aurora-strength: 0.30;
+    --aurora-1: 250 95% 68%;
+    --aurora-2: 284 90% 68%;
+    --aurora-3: 330 90% 66%;
+    --aurora-4: 186 95% 58%;
+    --aurora-strength: 0.40;
 
     color-scheme: dark;
   }
