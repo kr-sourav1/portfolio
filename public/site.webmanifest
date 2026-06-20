@@ -1,0 +1,17 @@
+{
+  "name": "Sourav Kumar Verma — Full-Stack Software Engineer",
+  "short_name": "Sourav Verma",
+  "description": "Portfolio of Sourav Kumar Verma, a Full-Stack Software Engineer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0b",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

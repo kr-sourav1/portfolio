@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+
+    <!-- Primary Meta Tags -->
+    <title>Sourav Kumar Verma — Full-Stack Software Engineer</title>
+    <meta name="title" content="Sourav Kumar Verma — Full-Stack Software Engineer" />
+    <meta
+      name="description"
+      content="Full-Stack Software Engineer building scalable backend systems and responsive frontends with Java, Spring Boot, React, and cloud — with a focus on AI-driven product capabilities."
+    />
+    <meta name="author" content="Sourav Kumar Verma" />
+    <meta
+      name="keywords"
+      content="Sourav Kumar Verma, Software Engineer, Full Stack Developer, Java, Spring Boot, React, Microservices, AWS, AI Engineer, Portfolio, Bengaluru"
+    />
+    <link rel="canonical" href="https://souravkumarverma.dev/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://souravkumarverma.dev/" />
+    <meta property="og:title" content="Sourav Kumar Verma — Full-Stack Software Engineer" />
+    <meta
+      property="og:description"
+      content="Full-Stack Software Engineer building scalable backend systems and AI-driven products with Java, Spring Boot, React, and cloud."
+    />
+    <meta property="og:image" content="https://souravkumarverma.dev/og-image.png" />
+    <meta property="og:site_name" content="Sourav Kumar Verma" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://souravkumarverma.dev/" />
+    <meta name="twitter:title" content="Sourav Kumar Verma — Full-Stack Software Engineer" />
+    <meta
+      name="twitter:description"
+      content="Full-Stack Software Engineer building scalable backend systems and AI-driven products with Java, Spring Boot, React, and cloud."
+    />
+    <meta name="twitter:image" content="https://souravkumarverma.dev/og-image.png" />
+
+    <!-- Fonts: preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Prevent flash of incorrect theme: set class before paint -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme')
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+          var isDark = stored ? stored === 'dark' : prefersDark
+          document.documentElement.classList.toggle('dark', isDark)
+        } catch (e) {}
+      })()
+    </script>
+
+    <!-- Structured data for rich search results -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Sourav Kumar Verma",
+        "jobTitle": "Full-Stack Software Engineer",
+        "email": "mailto:skverma10401@gmail.com",
+        "url": "https://souravkumarverma.dev",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Bengaluru",
+          "addressRegion": "Karnataka",
+          "addressCountry": "India"
+        },
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Prepisely Edutech Private Limited"
+        },
+        "alumniOf": [
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "Haldia Institute of Technology"
+          },
+          {
+            "@type": "EducationalOrganization",
+            "name": "C-DAC Advanced Computing Training School, Bengaluru"
+          }
+        ],
+        "sameAs": [
+          "https://github.com/kr-sourav1",
+          "https://www.linkedin.com/in/sourav-kumar-verma"
+        ],
+        "knowsAbout": [
+          "Java",
+          "Spring Boot",
+          "Microservices",
+          "React",
+          "Distributed Systems",
+          "AWS",
+          "Artificial Intelligence"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
